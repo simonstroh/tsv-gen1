@@ -21,7 +21,7 @@ let start = 1;
 let end = 10001;
 function tenThousandOf(start, end) {
   const result = [];
-  if (start === 1) result.push('id\tnickname\tactiveSince\tage\tbodyType\tathleticType\tcity\tstate\tcountry\n')
+  if (start === 1) result.push('_id\tnickname\tactiveSince\tage\tbodyType\tathleticType\tcity\tstate\tcountry\n')
   for (var i = start; i < end; i++) {
     const data = [];
     data.push(...randomValuesInArrays(nicknames, activeSinces, ages, bodyTypes, athleticTypes, cities, states, countries));

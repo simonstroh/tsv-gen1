@@ -12,6 +12,14 @@ const votedNotHelpfuls = ['1', '2', '3', '4', '5']
 const inappropriates = ['1', '2', '3', '4', '5']
 const userIds = [...Array(10000001).keys()].slice(1)
 const productIds = [...Array(1000001).keys()].slice(1)
+const nicknames = ['Sam', 'Simon', 'Nat', 'Grant']
+const activeSinces = ['2011-12-25 19:00:59', '2010-02-08 11:30:48', '2015-02-05 23:33:02', '2011-12-17 15:03:46']
+const ages = ['47', '35', '32', '33', '36', '22', '23', '21']
+const bodyTypes = ['curvy', 'slim', 'petite', 'lean', 'athletic']
+const athleticTypes = ['yogi', 'runner', 'cyclist', 'sweaty']
+const cities = ['Brooklyn', 'Paris', 'Tokyo', 'Berlin']
+const states = ['New York']
+const countries = ['United States', 'France']
 
 function randomValuesInArrays() {
   const arrays = Array.from(arguments)
@@ -26,20 +34,48 @@ let end = 100001
 function hundredThousandOf(start, end) {
   const result = []
   for (var i = start; i < end; i++) {
-    const data = []
-    data.push(...randomValuesInArrays(createdAts, titles, details, fits, ratings, whatYouLikes, whatYouDidntLikes, votedHelpfuls, votedNotHelpfuls, inappropriates, userIds, productIds))
-    result.push(data.join('\t') + '\n')
+    const data = [i]
+    let review = {
+      id: '',
+      createdAt: '',
+      title: '',
+      details: '',
+      fit: '',
+      rating: '',
+      whatYouLike: '',
+      whatYouDidntLike: '',
+      votedHelpful: '',
+      votedNotHelpful: '',
+      inappropriate: '',
+      userId: '',
+      productId: '',
+      nickname: '',
+      activeSince: '',
+      age: '',
+      bodyType: '',
+      athleticType: '',
+      city: '',
+      state: '',
+      country: ''
+    }
+    data.push(...randomValuesInArrays(createdAts, titles, details, fits, ratings, whatYouLikes, whatYouDidntLikes, votedHelpfuls, votedNotHelpfuls, inappropriates, userIds, productIds, nicknames, activeSinces, ages, bodyTypes, athleticTypes, cities, states, countries))
+    const reviewItems = Object.keys(review)
+    reviewItems.forEach((value, idx) => {
+      review[value] = data[idx]
+    })
+    result.push('\t' + JSON.stringify(review))
   }
-  return result.join('')
+  return result.join(',\n')
 }
-fs.appendFileSync('reviews.tsv', 'createdAt\ttitle\tdetails\tfit\trating\twhatYouLike\twhatYouDidntLike\tvotedHelpful\tvotedNotHelpful\tinappropriate\tuserId\tproductId\n')
+fs.appendFileSync('reviews.json', '[\n')
+// fs.appendFileSync('reviews.tsv', '_id\tcreatedAt\ttitle\tdetails\tfit\trating\twhatYouLike\twhatYouDidntLike\tvotedHelpful\tvotedNotHelpful\tinappropriate\tuserId\tproductId\n')
 while (start < 10000001) {
   console.log('Added one hundred thousand')
-  fs.appendFileSync('reviews.tsv', hundredThousandOf(start, end))
+  fs.appendFileSync('reviews.json', hundredThousandOf(start, end))
   start += 100000
   end += 100000
 }
-
+fs.appendFileSync('reviews.json', '\n]')
 // while (start < 33330001) {
 //   console.log('value of start', start)
 //   console.log('Added 10000 rows')

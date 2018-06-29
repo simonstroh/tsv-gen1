@@ -14,7 +14,7 @@ let i = 1
 stream.on('drain', () => {
   write()
 })
-stream.write('id\tgender\tcategory\ttype\tcolors\n')
+stream.write('_id\tgender\tcategory\ttype\tcolors\n')
 write()
 function randomValueInArray(array) {
   const randomInt = Math.floor(Math.random() * array.length)
